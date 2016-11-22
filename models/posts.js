@@ -1,6 +1,32 @@
 var marked = require('marked');
 var Post = require('./lib/mongo').Post;
 
+var CommentModel = require('./comments');
+
+// 给post添加留言数 commentsCount
+Post.plugin('addCommentsCount', {
+    afterFind: function(posts) {
+        return Promise.all(
+            posts.map(post => CommentModel
+                .getCommentsCount(post._id)
+                .then((commentsCount) => {
+                    post.commentsCount = commentsCount;
+                    return post;
+                }))
+        );
+    },
+
+    afterFindOne: function(post) {
+        if (post) {
+            return CommentModel.getCommentsCount(post._id).then((count) => {
+                post.commentsCount = count;
+                return post;
+            })
+        }
+        return post;
+    }
+});
+
 // 将post的content从markdown转换成html
 Post.plugin('contentToHtml', {
     afterFind: function(posts) {
@@ -27,9 +53,10 @@ module.exports = {
     // 通过文章id获取一篇文章
     getPostById: function getPostById(postId) {
         return Post
-        	.findOne({ _id: postId })
+            .findOne({ _id: postId })
             .populate({ path: 'author', model: 'User' })
             .addCreatedAt()
+            .addCommentsCount()
             .contentToHtml()
             .exec();
     },
@@ -45,6 +72,7 @@ module.exports = {
             .populate({ path: 'author', model: 'User' })
             .sort({ _id: -1 })
             .addCreatedAt()
+            .addCommentsCount()
             .contentToHtml()
             .exec();
     },
@@ -54,5 +82,24 @@ module.exports = {
         return Post
             .update({ _id: postId }, { $inc: { pv: 1 } })
             .exec();
+    },
+
+    // 通过文章id获取一篇原生文章（编辑文章）
+    getRawPostById(postId) {
+        return Post
+            .findOne({ _id: postId })
+            .populate({ path: 'author', model: 'User' })
+            .exec();
+    },
+
+    // 通过用户id和文章id更新一篇文章
+    updatePostById(postId, author, data) {
+        return Post
+            .update({ author: author, _id: postId }, { $set: data }).exec();
+    },
+
+    // 通过用户id和文章id删除一篇文章
+    delPostById(postId, author) {
+        return Post.remove({ author: author, _id: postId }).exec();
     }
 };

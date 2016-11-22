@@ -1,16 +1,24 @@
 {
-  "name": "myblog",
+  "name": "my-blog",
   "version": "1.0.0",
-  "description": "my first blog",
+  "description": "myblog",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heartstrings22/my-blog.git"
+  },
   "keywords": [
     "blog"
   ],
-  "author": "",
+  "author": "Adolt",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heartstrings22/my-blog/issues"
+  },
+  "homepage": "https://github.com/heartstrings22/my-blog#readme",
   "dependencies": {
     "config-lite": "^1.5.0",
     "connect-flash": "^0.1.1",

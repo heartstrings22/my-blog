@@ -20,6 +20,13 @@ exports.Post = mongolass.model('Post', {
 });
 exports.Post.index({ author: 1, _id: -1}).exec();
 
+exports.Comment = mongolass.model('Comment', {
+	author: { type: Mongolass.Types.ObjectId },
+	content: { type: 'string' },
+	postId: { type: Mongolass.Types.ObjectId }
+});
+exports.Post.index({ postId: 1, _id: 1}).exec();
+exports.Post.index({ author: 1, _id: 1}).exec();
 
 var moment = require('moment');
 var objectIdToTimestamp = require('objectid-to-timestamp');
