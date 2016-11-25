@@ -1,0 +1,4 @@
+# Ignore images in this directory
+*.jpg
+*.png
+test.js
