@@ -26,7 +26,7 @@ router.post('/', checkNotLogin, function(req, res, next) {
             throw new Error('名字请限制在 1-10 个字符');
         }
         if (['m', 'f', 'x'].indexOf(gender) === -1) {
-            throw new Error('性别只能是 m, f 或 x');
+            throw new Error('性别只能是 m、f 或 x');
         }
         if (!(bio.length >= 1 && bio.length <= 30)) {
             throw new Error('个人简介请限制在 1-30 个字符');

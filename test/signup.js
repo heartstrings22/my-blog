@@ -2,7 +2,7 @@ var path = require('path');
 var assert = require('assert');
 var request = require('supertest');
 var app = require('../index');
-var User = require('../lib/mongo').User;
+var User = require('../models/lib/mongo').User;
 
 describe('signup', function() {
     describe('POST /signup', function() {
@@ -38,7 +38,7 @@ describe('signup', function() {
                 agent
                     .post('/signup')
                     .type('form')
-                    .attach('avatar', path.join(__dirname, 'onestep.jpg'))
+                    .attach('avatar', path.join(__dirname, 'avatar.jpg'))
                     .field({ name: '' })
                     .redirects()
                     .end(function(err, res) {
@@ -53,7 +53,7 @@ describe('signup', function() {
                 agent
                     .post('/signup')
                     .type('form')
-                    .attach('avatar', path.join(__dirname, 'onestep.jpg'))
+                    .attach('avatar', path.join(__dirname, 'avatar.jpg'))
                     .field({ name: 'nswbmw', gender: 'a' })
                     .redirects()
                     .end(function(err, res) {
@@ -68,7 +68,7 @@ describe('signup', function() {
                 agent
                 .post('/signup')
                 .type('form')
-                .attach('avatar', path.join(__dirname, 'onestep.jpg'))
+                .attach('avatar', path.join(__dirname, 'avatar.jpg'))
                 .field({ name: 'aaa', gender: 'm', bio: 'noder', password: '123456', repassword: '123456' })
                 .redirects()
                 .end(function(err, res) {
@@ -83,7 +83,7 @@ describe('signup', function() {
             agent
                 .post('/signup')
                 .type('form')
-                .attach('avatar', path.join(__dirname, 'onestep.jpg'))
+                .attach('avatar', path.join(__dirname, 'avatar.jpg'))
                 .field({ name: 'nswbmw', gender: 'm', bio: 'noder', password: '123456', repassword: '123456' })
                 .redirects()
                 .end(function(err, res) {
