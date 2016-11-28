@@ -41,8 +41,10 @@ app.use(require('express-formidable')({
 
 // 设置模板全局常量
 app.locals.blog = {
-  title: pkg.name,
-  description: pkg.description
+  // title: pkg.name,
+  // description: pkg.description
+  title: 'Adolt\'s Blog',
+  description: '学习Node.js，模仿@nswbmw的个人博客。'
 };
 
 // 添加模板必需的三个变量
