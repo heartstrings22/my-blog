@@ -48,7 +48,6 @@ Temporary Items
 
 config/*
 !config/default.*
-logs
 npm-debug.log
 node_modules
 coverage
