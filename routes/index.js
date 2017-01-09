@@ -10,6 +10,7 @@ module.exports = function(app) {
 	app.use((req, res) => {
 	  if (!res.headersSent) {
 	    res.render('404');
+	    return;
 	  }
 	});
 	// error page
@@ -17,5 +18,6 @@ module.exports = function(app) {
 	  res.render('error', {
 	    error: err
 	  });
+	  return;
 	});
 }

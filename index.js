@@ -28,7 +28,9 @@ app.use(session({
 	},
 	store: new MongoStore({
 		url: config.mongodb // mongodb地址
-	})
+	}),
+  saveUninitializedSession: true,
+  resaveSession: true
 }));
 
 // flash 中间件，用来显示通知
@@ -88,7 +90,8 @@ if (module.parent) {
   module.exports = app;
 } else {
   // 监听端口，启动程序
-  app.listen(config.port, function () {
-    console.log(`${pkg.name} listening on port ${config.port}`);
+  const port = process.env.PORT || config.port;
+  app.listen(port, function () {
+    console.log(`${pkg.name} listening on port ${port}`);
   });
 }

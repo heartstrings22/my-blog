@@ -46,8 +46,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-config/*
-!config/default.*
+# config/*
+# !config/default.*
 npm-debug.log
 node_modules
 coverage
